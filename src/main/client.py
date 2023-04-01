@@ -4,7 +4,7 @@ import pyautogui
 import pyperclip
 from api.gpt import chat
 from helper.help import paste
-from src.utils.file_utils import remove_stop_signal, should_stop
+from utils.file_utils import remove_stop_signal, should_stop
 
 
 keystrokes = []
