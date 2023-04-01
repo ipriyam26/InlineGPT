@@ -1,3 +1,4 @@
+import time
 from pynput import keyboard
 import pyautogui
 
@@ -64,16 +65,21 @@ def on_release(key):
     if key == keyboard.Key.cmd and querying:
         # Reset keystrokes list
         sentence = "".join(keystrokes).strip()
-        # convert all spaces to single space and remove all spaces at the end
-        sentence = re.sub(' +', ' ', sentence)
-        words = len(sentence.split(" "))
-        for _ in range(words+2):
-            pyautogui.hotkey('option', 'backspace')
+
+        for _ in range(len(sentence)+4):
+            pyautogui.press('backspace')
+
         stt = "Please wait while I think..."
+
         pyautogui.write(stt)
-        ans = chat(sentence)
-        for _ in stt.split(" ")+["GPT:"]:
-            pyautogui.hotkey('option', 'backspace')
+        try:
+            ans = chat(sentence)
+        except Exception:
+            ans = "I am sorry, There is some internal. Please try again."
+
+        for _ in stt:
+            pyautogui.press('backspace')
+
         keystrokes.clear()
         querying = False
         pyautogui.typewrite(ans)
