@@ -2,7 +2,7 @@ import configparser
 
 def read_setting(section, key, default_value=None):
     config = configparser.ConfigParser()
-    config.read("config.ini")
+    config.read("src/config/config.ini")
     try:
         value = config.get(section, key)
     except (configparser.NoSectionError, configparser.NoOptionError):
@@ -11,11 +11,11 @@ def read_setting(section, key, default_value=None):
 
 def save_setting(section, key, value):
     config = configparser.ConfigParser()
-    config.read("config.ini")
+    config.read("src/config/config.ini")
     if not config.has_section(section):
         config.add_section(section)
     config.set(section, key, value)
-    with open("config.ini", "w") as configfile:
+    with open("src/config/config.ini", "w") as configfile:
         config.write(configfile)
 
 def get_api_key():

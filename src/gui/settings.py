@@ -15,7 +15,6 @@ def save_settings():
 
     save_api_key(api_key)
     save_custom_trigger(custom_trigger)
-
     messagebox.showinfo("Success", "Settings saved successfully.")
 
 
