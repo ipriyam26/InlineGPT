@@ -1,5 +1,4 @@
 import contextlib
-from multiprocessing import Event
 import threading
 import time
 from pynput import keyboard
@@ -7,7 +6,7 @@ import pyautogui
 import pyperclip
 from api.gpt import chat
 from helper.help import paste
-from utils.file_utils import remove_stop_signal, should_stop
+from utils.file_utils import should_stop
 
 
 keystrokes = []
@@ -73,7 +72,7 @@ def run_client():
     check_thread = threading.Thread(target=check_file, args=(stop_event,))
     check_thread.start()
 
-    with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
+    with keyboard.Listener(on_press=on_press, on_release=on_release) as _:
         while not stop_event.is_set():
             stop_event.wait(0.1)  # Wait for the stop_event to be set
 
