@@ -1,3 +1,4 @@
+from datetime import datetime
 import openai
 from .openai_auth import get_api_key
 
@@ -5,7 +6,8 @@ from .openai_auth import get_api_key
 def chat(message: str) -> str:
     openai.api_key = get_api_key()
     messages = [
-        {"role": "system", "content": "You are a helpful assistant. Be precise and to the point."},
+        {"role": "system", "content": "You are a helpful assistant.\
+         Be precise and to the point."},
     ]
 
     if message:
@@ -19,10 +21,12 @@ def chat(message: str) -> str:
     word = ""
     # open loggin file
     with open("log.txt", "a") as f:
+        f.write("====================================\n")
+        f.write(f"Time: {datetime.now()}\n")
         f.write(f"User: {message}\n")
-        f.write(f"Bot: {chat_completion.choices[0].text}\n")
+        f.write(f"Bot: {chat_completion.choices[0].message.content}\n")
     try:
-        word = chat_completion.choices[0].text
+        word = chat_completion.choices[0].message.content
     except Exception:
-        word = "ok"
+        word = "Internal Server Error, please try again later."
     return word

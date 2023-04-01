@@ -1,5 +1,7 @@
 import contextlib
 from multiprocessing import Event
+import threading
+import time
 from pynput import keyboard
 import pyautogui
 import pyperclip
@@ -39,13 +41,13 @@ def on_release(key):
     global querying
 
     if key == keyboard.Key.cmd and querying:
-        sentence = "".join(keystrokes).strip()
+        sentence = "".join(keystrokes)
 
         for _ in range(len(sentence)+4):
             pyautogui.press('backspace')
 
         stt = "Please wait while I think..."
-        pyautogui.typewrite(stt)
+        pyautogui.write(stt)
         ans = chat(sentence)
         for _ in stt:
             pyautogui.press('backspace')
@@ -58,14 +60,24 @@ def on_release(key):
         paste()
 
 
+def check_file(stop_event):
+    while not stop_event.is_set():
+        if should_stop():
+            stop_event.set()
+            break
+        time.sleep(1)
+
+
 def run_client():
-    with keyboard.Listener(on_press=on_press,
-                           on_release=on_release) as listener:
-        # while not should_stop():
-        listener.join()
-        # remove_stop_signal()
+    stop_event = threading.Event()
+    check_thread = threading.Thread(target=check_file, args=(stop_event,))
+    check_thread.start()
+
+    with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
+        while not stop_event.is_set():
+            stop_event.wait(0.1)  # Wait for the stop_event to be set
 
 
 if __name__ == "__main__":
-    stop_event = Event()
+    # stop_event = Event()
     run_client()
