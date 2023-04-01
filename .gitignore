@@ -3,3 +3,6 @@ src/config/config.ini
 venv
 .vscode
 __pycache__
+config.ini
+dist/main
+build/*

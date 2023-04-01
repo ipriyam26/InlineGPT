@@ -4,11 +4,12 @@ import threading
 from tkinter import messagebox
 import tkinter as tk
 
-from main.settings import get_api_key, save_api_key
-from main.settings import get_custom_trigger, save_custom_trigger
-from utils.file_utils import create_stop_signal, remove_stop_signal
-from gui.utils import create_labeled_input
-from main.client import run_client
+
+from ..main.settings import get_api_key, save_api_key
+from ..main.settings import get_custom_trigger, save_custom_trigger
+from ..utils.file_utils import create_stop_signal, remove_stop_signal
+from ..gui.utils import create_labeled_input
+from ..main.client import run_client
 
 # client_thread = threading.Thread(target=run_client, daemon=True)
 
@@ -44,7 +45,7 @@ client_process = None
 def toggle_script():
     global client_process
     if client_process is None or client_process.poll() is not None:
-        client_process = subprocess.Popen(["python3", "src"])
+        client_process = subprocess.Popen(["python3", "run_client.py"])
         messagebox.showinfo("Success", "The script has started.")
         start_stop_button.config(text="Stop Script", command=toggle_script)
     else:

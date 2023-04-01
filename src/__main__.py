@@ -1,6 +1,5 @@
-from multiprocessing import Event
 import sys
-from main.client import run_client
+from src.main.client import run_client
 
 
 def main():

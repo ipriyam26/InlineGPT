@@ -4,9 +4,9 @@ import time
 from pynput import keyboard
 import pyautogui
 import pyperclip
-from api.gpt import chat
-from helper.help import paste
-from utils.file_utils import should_stop
+from ..api.gpt import chat
+from ..helper.help import paste
+from ..utils.file_utils import should_stop
 
 
 keystrokes = []
