@@ -1,4 +1,4 @@
-src/config/*
+src/config/config.ini
 .env
 venv
 .vscode
