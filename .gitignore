@@ -1,5 +1,5 @@
+src/config/*
 .env
 venv
 .vscode
 __pycache__
-config/*
