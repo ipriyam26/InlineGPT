@@ -5,6 +5,7 @@ import pyautogui
 import pyperclip
 from api.gpt import chat
 from helper.help import paste
+from src.utils.file_utils import remove_stop_signal, should_stop
 
 
 keystrokes = []
@@ -65,7 +66,9 @@ def on_release(key):
 
 def run_client():
     with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
-        listener.join()
+        while not should_stop():
+            listener.join(1)  # Check for the stop signal every 1 second
+        remove_stop_signal()
 
 if __name__ == "__main__":
     run_client()

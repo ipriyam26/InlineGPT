@@ -1,7 +1,7 @@
 import openai
 from .openai_auth import get_api_key
 
-def chat(message):
+def chat(message:str):
     openai.api_key = get_api_key()
 
     messages = [
