@@ -1,5 +1,4 @@
 import contextlib
-import time
 from pynput import keyboard
 import pyautogui
 import pyperclip
@@ -44,7 +43,7 @@ def on_release(key):
             pyautogui.press('backspace')
 
         stt = "Please wait while I think..."
-        pyautogui.write(stt)
+        pyautogui.typewrite(stt)
         
         try:
             ans = chat(sentence)
