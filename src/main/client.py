@@ -1,4 +1,5 @@
 import contextlib
+from multiprocessing import Event
 from pynput import keyboard
 import pyautogui
 import pyperclip
@@ -10,6 +11,7 @@ from utils.file_utils import remove_stop_signal, should_stop
 keystrokes = []
 querying = False
 
+
 def on_press(key):
     global keystrokes
     global querying
@@ -17,7 +19,7 @@ def on_press(key):
 
         if key == keyboard.Key.space:
             keystrokes.append(" ")
-        elif key.char != None:
+        elif key.char is not None:
             keystrokes.append(key.char)
     except AttributeError:
         if key == keyboard.Key.backspace and len(keystrokes) > 0:
@@ -44,30 +46,26 @@ def on_release(key):
 
         stt = "Please wait while I think..."
         pyautogui.typewrite(stt)
-        
-        try:
-            ans = chat(sentence)
-        except Exception:
-            ans = "I am sorry, There is some internal. Please try again."
-
+        ans = chat(sentence)
         for _ in stt:
             pyautogui.press('backspace')
 
         keystrokes.clear()
         querying = False
-        
-        
+
         # Copy the answer to the clipboard and paste it
         pyperclip.copy(ans)
         paste()
-        
 
 
 def run_client():
-    with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
-        while not should_stop():
-            listener.join(1)  # Check for the stop signal every 1 second
-        remove_stop_signal()
+    with keyboard.Listener(on_press=on_press,
+                           on_release=on_release) as listener:
+        # while not should_stop():
+        listener.join()
+        # remove_stop_signal()
+
 
 if __name__ == "__main__":
+    stop_event = Event()
     run_client()
