@@ -1,5 +1,6 @@
-import tkinter as tk
 from tkinter import messagebox
+import tkinter as tk
+
 from main.settings import get_api_key, save_api_key, get_custom_trigger, save_custom_trigger
 from utils.file_utils import create_stop_signal
 from gui.utils import create_labeled_input
@@ -38,4 +39,3 @@ save_button.grid(row=2, columnspan=2, pady=(10, 5))
 stop_button = tk.Button(frame, text="Stop Script", command=stop_script)
 stop_button.grid(row=3, columnspan=2, pady=(5, 10))
 
-root.mainloop()

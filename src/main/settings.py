@@ -19,7 +19,7 @@ def save_setting(section, key, value):
         config.write(configfile)
 
 def get_api_key():
-    return read_setting("Credentials", "API_KEY")
+    return read_setting("Credentials", "API_KEY","")
 
 def get_custom_trigger():
     return read_setting("Settings", "CUSTOM_TRIGGER", "GPT:")
