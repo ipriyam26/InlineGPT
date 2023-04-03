@@ -4,5 +4,6 @@ venv
 .vscode
 __pycache__
 config.ini
-dist/main
+dist/config.ini
 build/*
+log.txt
