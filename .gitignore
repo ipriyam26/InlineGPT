@@ -7,3 +7,4 @@ config.ini
 dist/config.ini
 build/*
 log.txt
+*.zip

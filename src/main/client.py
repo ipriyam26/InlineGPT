@@ -3,14 +3,18 @@ import threading
 import time
 from pynput import keyboard
 import pyautogui
+
+
 import pyperclip
 from ..api.gpt import chat
-from ..helper.help import paste
+from ..helper.help import paste, getModifier
 from ..utils.file_utils import should_stop
 
 
 keystrokes = []
 querying = False
+
+modifier = getModifier()
 
 
 def on_press(key):
@@ -39,7 +43,7 @@ def on_release(key):
     global keystrokes
     global querying
 
-    if key == keyboard.Key.cmd and querying:
+    if key == modifier and querying:
         sentence = "".join(keystrokes)
 
         for _ in range(len(sentence)+4):
