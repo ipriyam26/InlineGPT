@@ -1,8 +1,11 @@
 # InlineGPT
 
+https://user-images.githubusercontent.com/79325116/229753626-0cc23047-23ea-4e00-b25a-64f4d69d540e.mp4
+
 InlineGPT is a versatile and user-friendly Python project that enables users to access the power of GPT directly from their cursor. The project is designed with ease-of-use in mind, allowing users to simply run the program and enter their OpenAI API key to get started. InlineGPT is compatible with major operating systems such as Windows, macOS, and Linux.
 
 ## Features
+
 
 - Intuitive GUI for easy configuration of API key and trigger
 - Direct use of GPT within the active window
