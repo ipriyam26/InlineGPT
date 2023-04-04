@@ -1,4 +1,5 @@
 import sys
+import os
 import subprocess
 import threading
 from tkinter import messagebox
@@ -45,10 +46,12 @@ client_process = None
 def toggle_script():
     global client_process
     if client_process is None or client_process.poll() is not None:
+        run_client_path = os.path.join(os.path.dirname(
+            os.path.abspath(sys.argv[0])), "run_client")
         if sys.platform == "win32":
-            client_process = subprocess.Popen([".\run_client.exe"])
+            client_process = subprocess.Popen([f"{run_client_path}.exe"])
         else:
-            client_process = subprocess.Popen(["./run_client"])
+            client_process = subprocess.Popen([f"{run_client_path}"])
         messagebox.showinfo("Success", "The script has started.")
         start_stop_button.config(text="Stop Script", command=toggle_script)
     else:

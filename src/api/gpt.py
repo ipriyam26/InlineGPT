@@ -9,16 +9,18 @@ def chat(message: str) -> str:
         {"role": "system", "content": "You are a helpful assistant.\
          Be precise and to the point."},
     ]
-
-    if message:
-        messages.append(
-            {"role": "user", "content": message},
-        )
-        chat_completion = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=messages
-        )
     word = ""
+    try:
+        if message:
+            messages.append(
+                {"role": "user", "content": message},
+            )
+            chat_completion = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",
+                messages=messages
+            )
+    except Exception:
+        word = "Server is Overloaded right now, Please try again later..."
     # open loggin file
     with open("log.txt", "a") as f:
         f.write("====================================\n")
