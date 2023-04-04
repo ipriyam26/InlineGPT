@@ -30,7 +30,7 @@ venv\Scripts\activate     # For Windows
 2. Install the required packages.
 
 ```bash
-pip install -r src/req.txt
+pip install -r requirement.txt 
 ```
 
 3. Compile the executables using PyInstaller.
