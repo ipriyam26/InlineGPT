@@ -42,8 +42,11 @@ pip install -r requirement.txt
 pyinstaller run_client.py --onefile
 pyinstaller main.py --onefile
 ```
+4. Get api key https://elephas.app/blog/how-to-create-openai-api-keys-cl5c4f21d281431po7k8fgyol0
 
-4. Run the `main` executable to start the program.
+5. Run the `main` executable to start the program.
+
+
 
 ## Usage
 
