@@ -71,10 +71,26 @@ def check_file(stop_event):
         time.sleep(1)
 
 
+def check_clipboard(stop_event):
+    prev_content = ""
+    while not stop_event.is_set():
+        current_content = pyperclip.paste().strip()
+        if current_content != prev_content:
+            if current_content.startswith("GPT:"):
+                pyperclip.copy("Processing request")
+                processed_content = chat(current_content)
+                pyperclip.copy(processed_content)
+                prev_content = current_content
+        time.sleep(1)
+
+
 def run_client():
     stop_event = threading.Event()
     check_thread = threading.Thread(target=check_file, args=(stop_event,))
+    clipboard_thread = threading.Thread(
+        target=check_clipboard, args=(stop_event,))
     check_thread.start()
+    clipboard_thread.start()
 
     with keyboard.Listener(on_press=on_press, on_release=on_release) as _:
         while not stop_event.is_set():
